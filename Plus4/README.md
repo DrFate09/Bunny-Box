@@ -7,7 +7,6 @@ TODO - installer script will be made available in the future.
 
 ## MANUAL INSTALLATION
 
-
 ### HAPPY HARE INSTALLATION
 <details>
 <summary> HAPPY HARE INSTALL </summary>
@@ -63,6 +62,8 @@ sudo service klipper restart
 <details>
 <summary> `[printer.cfg]` CHANGES </summary>
 
+0. Backup your printer.cfg file! Just in case you want to return to the stock config.
+
 1. Remove Qidi's stock box config `[include box.cfg]`.
 
 2. Add `[include bunnybox_macros.cfg]` at the top.
@@ -105,6 +106,8 @@ logging: False
 <details>
 <summary> `[gcode_macro.cfg]` CHANGES </summary>
 
+0. Backup your gcode_macro.cfg file! Just in case you want to return to the stock config.
+
 1. In PRINT_START we need to change Box detection logic:
 ```diff
 [gcode_macro PRINT_START]
@@ -129,88 +132,14 @@ gcode:
 [...]
 ```
 
-2. In `PAUSE`
-```diff
-[gcode_macro PAUSE]
-rename_existing: BASE_PAUSE
-gcode:
+2. Remove `PAUSE` (or comment it out).
 
-(...)
+3. Remove `RESUME_PRINT` (or comment it out).
 
-        SET_IDLE_TIMEOUT TIMEOUT=86400
-        SET_STEPPER_ENABLE STEPPER=extruder enable=0
--        {% set slot_sync = printer.save_variables.variables.slot_sync|default("slot-1") %}
--        {% if printer['box_stepper ' ~ slot_sync] %}
--            SET_STEPPER_ENABLE STEPPER='box_stepper '{slot_sync} enable=0
-+        {% if printer.mmu.sync_drive %}
-+            {% set slot_sync = printer.mmu.tool|default("-1") %}
-+            {% if printer.mmu.tool == 0 %}
-+                SET_STEPPER_ENABLE STEPPER='stepper_mmu_gear' enable=0
-+            {% elif printer.mmu.tool > 0 %}
-+                SET_STEPPER_ENABLE STEPPER=('stepper_mmu_gear_' ~ {slot_sync}) enable=0
-        {% endif %}
-```
+4. Remove `RESUME` (or comment it out).
 
-3. In `RESUME_PRINT`
+5. Remove `CANCEL_PRINT` (or comment it out).
 
-```diff
-[gcode_macro RESUME_PRINT]
-    
-    (...)
-
-    {% if printer['pause_resume'].is_paused|int == 1 %}
--        {% if printer.save_variables.variables.box_count >= 1 and printer.save_variables.variables.enable_box == 1 and printer.save_variables.variables.is_tool_change == 1 %} 
-+        {% if printer.mmu.num_gates >= 4 and printer.mmu.enabled and printer.save_variables.variables.is_tool_change == 1 %} 
-            SET_IDLE_TIMEOUT TIMEOUT={printer.configfile.settings.idle_timeout.timeout}
-            MOVE_TO_TRASH
-            {% if etemp > 0 %}
-                M109 S{etemp|int}
-            {% endif %}
-            M83
-            RESTORE_GCODE_STATE NAME=PAUSEPARK2 MOVE=1 MOVE_SPEED=200                            
-            RESTORE_GCODE_STATE NAME=PAUSE MOVE=1 MOVE_SPEED=15
-            BASE_RESUME  
-        {% else %}
-            SET_IDLE_TIMEOUT TIMEOUT={printer.configfile.settings.idle_timeout.timeout}
-            {% if etemp > 0 %}
-                M109 S{etemp|int}
-            {% endif %}
--            {% if printer.save_variables.variables.box_count >= 1 %} 
-+            {% if printer.mmu.num_gates >= 4 %} 
-                SAVE_VARIABLE VARIABLE=retry_step VALUE=None
-            {% endif %}
-    
-    (...)
-```
-
-4. In `RESUME`
-
-```diff
-[gcode_macro RESUME]
-rename_existing: BASE_RESUME
-gcode:    
-    {% if printer['pause_resume'].is_paused|int == 1 %}
--        {% if printer.save_variables.variables.box_count >= 1 %} 
-+        {% if printer.mmu.num_gates >= 4 %} 
--            {% if printer.save_variables.variables.enable_box == 1 %}
-+            {% if printer.mmu.enabled %}
-                TRY_RESUME_PRINT
-            {% else %}
-                {% if printer['hall_filament_width_sensor'].Diameter > 0.5 %}
-                    RESUME_PRINT
-                {% else %}
-                    M118 Printer resume failed
-                {% endif %}
-            {% endif %}
-        {% else %}
-            {% if printer['hall_filament_width_sensor'].Diameter > 0.5 %}
-                RESUME_PRINT
-            {% else %}
-                M118 Printer resume failed
-            {% endif %}
-        {% endif %}
-    {% endif %}
-```
 </details>
 
 
