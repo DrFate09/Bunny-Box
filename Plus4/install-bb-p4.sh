@@ -129,12 +129,26 @@ echo "Configurations copied."
 echo ""
 echo "==> Configuring Serial Address..."
 # Find serial devices
-echo "Available serial devices:"
-ls -1 /dev/serial/by-id/* 2>/dev/null || echo "No serial devices found!"
+DETECTED_SERIAL=""
+if ls /dev/serial/by-id/*QIDI_BOX* 1> /dev/null 2>&1; then
+    # Grab the first match
+    DETECTED_SERIAL=$(ls -1 /dev/serial/by-id/*QIDI_BOX* | head -n 1)
+fi
 
-echo ""
-read -p "Enter your printer's serial ID string from above (e.g., /dev/serial/by-id/usb-Klipper_...): " SERIAL_ID </dev/tty
+if [ -n "$DETECTED_SERIAL" ]; then
+    echo "Autodetected Qidi Box at: $DETECTED_SERIAL"
+    read -p "Use this serial port? (Y/n) " USE_DETECTED </dev/tty
+    if [[ -z "$USE_DETECTED" ]] || [[ "$USE_DETECTED" =~ ^[Yy]$ ]]; then
+        SERIAL_ID="$DETECTED_SERIAL"
+    fi
+fi
 
+if [ -z "$SERIAL_ID" ]; then
+    echo "Available serial devices:"
+    ls -1 /dev/serial/by-id/* 2>/dev/null || echo "No serial devices found!"
+    echo ""
+    read -p "Enter your printer's serial ID string from above (e.g., /dev/serial/by-id/usb-Klipper_...): " SERIAL_ID </dev/tty
+fi
 if [ -n "$SERIAL_ID" ]; then
     MMU_CFG="$CONFIG_DIR/mmu/base/mmu.cfg"
     if [ -f "$MMU_CFG" ]; then
