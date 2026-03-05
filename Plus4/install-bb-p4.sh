@@ -130,9 +130,8 @@ echo ""
 echo "==> Configuring Serial Address..."
 # Find serial devices
 DETECTED_SERIAL=""
-if ls /dev/serial/by-id/*QIDI_BOX* 1> /dev/null 2>&1; then
-    # Grab the first match
-    DETECTED_SERIAL=$(ls -1 /dev/serial/by-id/*QIDI_BOX* | head -n 1)
+if [ -d "/dev/serial/by-id" ]; then
+    DETECTED_SERIAL=$(find /dev/serial/by-id -maxdepth 1 -iname "*QIDI_BOX*" 2>/dev/null | head -n 1)
 fi
 
 if [ -n "$DETECTED_SERIAL" ]; then
