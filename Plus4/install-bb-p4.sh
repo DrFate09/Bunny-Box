@@ -62,8 +62,9 @@ if [ ! -d "$SCRIPT_DIR/config_hh-standalone" ]; then
     unzip -q "$ZIP_FILE" -d "$TEMP_DIR"
     
     # Update SCRIPT_DIR to point to the extracted Plus4 folder
-    # The extracted folder is usually named `<repo>-main`
-    SCRIPT_DIR="$TEMP_DIR/Happy-Hare-Plus4-Configs-main/Plus4"
+    # We detect the extracted folder name dynamically:
+    EXTRACTED_DIR=$(find "$TEMP_DIR" -mindepth 1 -maxdepth 1 -type d | head -n 1)
+    SCRIPT_DIR="$EXTRACTED_DIR/Plus4"
     
     if [ ! -d "$SCRIPT_DIR/config_hh-standalone" ]; then
          echo "Error: Expected configuration folders not found in downloaded archive."
