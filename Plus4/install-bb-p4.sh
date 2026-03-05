@@ -83,7 +83,7 @@ echo "This script will automate the installation of Happy Hare"
 echo "and configure your Qidi Plus4 for standalone usage."
 echo "Please ensure you have read the README."
 echo ""
-read -p "Do you want to continue? (y/n) " -n 1 -r
+read -p "Do you want to continue? (y/n) " -n 1 -r </dev/tty
 echo
 if [[ ! $REPLY =~ ^[Yy]$ ]]; then
     exit 1
@@ -106,7 +106,7 @@ echo ""
 echo "==> Select Configuration Variant:"
 echo "1) config_hh-standalone (Recommended)"
 echo "2) config_qidi-like (Not currently working)"
-read -p "Select variant [1/2, default 1]: " VARIANT_CHOICE
+read -p "Select variant [1/2, default 1]: " VARIANT_CHOICE </dev/tty
 if [ "$VARIANT_CHOICE" == "2" ]; then
     CONFIG_VARIANT="config_qidi-like"
 else
@@ -133,7 +133,7 @@ echo "Available serial devices:"
 ls -1 /dev/serial/by-id/* 2>/dev/null || echo "No serial devices found!"
 
 echo ""
-read -p "Enter your printer's serial ID string from above (e.g., /dev/serial/by-id/usb-Klipper_...): " SERIAL_ID
+read -p "Enter your printer's serial ID string from above (e.g., /dev/serial/by-id/usb-Klipper_...): " SERIAL_ID </dev/tty
 
 if [ -n "$SERIAL_ID" ]; then
     MMU_CFG="$CONFIG_DIR/mmu/base/mmu.cfg"
@@ -169,7 +169,7 @@ echo "Running Happy Hare install script..."
 if [ -f "$HH_DIR/install.sh" ]; then
     echo "Happy Hare install script may prompt you for inputs."
     cd "$HH_DIR"
-    ./install.sh
+    ./install.sh </dev/tty
     cd - >/dev/null
 else
     echo "Error: install.sh not found in Happy-Hare repo!"
