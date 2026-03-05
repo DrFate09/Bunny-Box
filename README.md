@@ -14,10 +14,7 @@ Bunny Box is the Qidi Box mod that allows you to ditch Qidi's closed-source, pro
  * Open source alternative to Qidi's Box control
     * No more .so files (you can update Python again)
     * Full control over Qidi Box configuration
-
- * Compatible with gcode generated for stock Qidi printers
-    * printer profiles to make Orca Slicer or Prusa Slicer behave like Qidi Slicer also available
-    * alternatively, use of a typical Happy Hare printer profile is also supported
+    * Make the Qidi Box work on older Qidi and non-Qidi printers
 
  * Fully featured Happy Hare
     * Tip forming - save filament by reducing waste
@@ -56,6 +53,62 @@ We are for now relying on a fork of Happy Hare until our new features are pulled
 ## ADDITIONAL HELP
 
 Refer to the [Happy Hare documentation](https://github.com/moggieuk/Happy-Hare/wiki).
+
+## Frequenty Asked Questions
+
+<details>
+<summary> Do I need to flash the Qidi Box firmware? </summary>
+No! Qidi Box already runs Klipper (Qidi's fork). Since the Box is a slave to the host (printer), flashing is not needed regardless of if you are connecting to a Qidi printer, a Qidi printer flashed with FreeDi or Kalico, or a non-Qidi printer. Nonetheless, you can flash it - the instructions are here.
+
+</details>
+
+<details>
+<summary> How do I go back to the stock firmware?  </summary>
+Just replace the `gcode_macros.cfg` and `printer.cfg` files with the backed up stock ones and restart Klipper.
+
+</details>
+
+<details>
+<summary> Can you add support for my printer? </summary>
+I only have a Plus4 and so can't really make other printers work. There are people with the Q2 who are using Bunny Box though, so that will likely come soon. For the Max4, I don't have one, so that will only come if someone else makes it. As for older ones/non-Qidi printers, you're on your own - I don't have one and think it's unlikely anyone will make one for you.
+
+</details>
+
+<details>
+<summary> I'm a bit of a noob, can you help me? </summary>
+Unfortunately I probably won't be able to help you much - I'm pretty busy and issues with Happy Hare are very difficult to diagnose without having phyiscal access to the machine and full knowledge of its configuration. If you decide to use this, be aware that you are expected to read [Happy Hare documentation](https://github.com/moggieuk/Happy-Hare/wiki) and understand what you are doing.
+
+</details>
+
+<details>
+<summary> I changed the speeds in mmu_parameters.cfg, why are loads weird now? </summary>
+Qidi's encoder is not that great unfortunately. It's measurement will vary widely depending on speed. At the same time you cannot really adjust its sensitivity parameter, since it is used for clog detetion during print (when the filament is moving slowly). In effect, you should calibrate the lengts of tubes after changing speeds (using the encoder calibration routire in HH). 
+
+</details>
+
+<details>
+<summary> My filament is grinding in the gears </summary>
+Repeated load/unload cycles without any significant extrusion will cause the filament to grind in the gears. This is normal.
+
+</details>
+
+<details>
+<summary> I'm getting false-positive runouts on filament changes! </summary>
+You probably forgot to remove the runout from your [hall_filament_width_sensor] section in printer.cfg! Comment out the runout gcode and the pause on runout parameter, or remove the entire section.
+
+</details>
+
+<details>
+<summary> I think my config is awesome, can I share it here? </summary>
+Yes! Please create a PR. If you are able to make a distint configuration (e.g. for a different printer or compatible with stock Qidi gcode) please make a new folder for it and add a README describing the configuration and installation. Small configuration tweaks can be made to the base configs, but should be well described and justified.
+
+</details>
+
+<details>
+<summary> I love this mod! Happy Hare is great! How can I make it even better!? </summary>
+Get a [proportional sensor](https://github.com/kashine6/Proportional-Sync-Feedback-Sensor) and use it instead of the stock filament tangle sensor.
+
+</details>
 
 ## CONTRIBUTING
 
