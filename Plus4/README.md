@@ -182,6 +182,7 @@ Alternatively you can also install Mainsail instead of Fluidd.
 </details>
 
 <details>
+
 ### STEP 5: SLICER SETTINGS
 
 <summary> STEP 5: SLICER SETTINGS </summary>
