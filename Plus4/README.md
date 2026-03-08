@@ -185,7 +185,7 @@ Alternatively you can also install Mainsail instead of Fluidd.
 ### STEP 5: SLICER SETTINGS
 
 <details>
-<summary> STEP 5: SLICER SETTINGS </summary>
+<summary> SLICER SETTINGS </summary>
 
 Go into your pritner settings in the slicer and change them to use the [following machine g-codes](slicer_machine_gcodes.md).
 
