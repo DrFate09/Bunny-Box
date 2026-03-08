@@ -181,12 +181,13 @@ Alternatively you can also install Mainsail instead of Fluidd.
 
 </details>
 
+
+### STEP 5: SLICER SETTINGS
+
+<summary> STEP 5: SLICER SETTINGS </summary>
 <details>
 
-<summary> ### STEP 5: SLICER SETTINGS </summary>
-
-None! The mod is intended to be transparent for the slicer. If your gcode works with a stock Plus4, it should work with Happy Hare. 
-Tested on Orca Slicer using the [following g-codes](slicer_machine_gcodes.md), which are meant to replicate the Qidi Slicer profile.
+Go into your pritner settings in the slicer and change them to use the [following machine g-codes](slicer_machine_gcodes.md).
 
 </details>
 
