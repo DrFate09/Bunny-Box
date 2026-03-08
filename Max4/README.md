@@ -18,9 +18,9 @@ The script will backup your configurations, download the necessary files, prompt
 
 ## MANUAL INSTALLATION
 
-### HAPPY HARE INSTALLATION
+### STEP 1: HAPPY HARE INSTALLATION
 <details>
-<summary> STEP 1: HAPPY HARE INSTALL </summary>
+<summary> HAPPY HARE INSTALL </summary>
 
 1. Select your config variant. At present, you can select from:
 
@@ -67,7 +67,7 @@ sudo service klipper restart
 ```
 </details>
 
-### STEP 2:printer.cfg CHANGES
+### STEP 2: printer.cfg CHANGES
 
 <details>
 <summary> `[printer.cfg]` CHANGES </summary>
@@ -105,10 +105,10 @@ Other mmu directories should not be included!
 
 </details>
 
-### STEP 3: gcode_macro.cfg CHANGES
+### STEP 3: klipper-macros-qd CHANGES
 
 <details>
-<summary> `[gcode_macro.cfg]` CHANGES </summary>
+<summary> `klipper-macros-qd` CHANGES </summary>
 
 0. Backup your `klipper-macros-qd` folder! Just in case you want to return to the stock config.
 
@@ -165,9 +165,10 @@ Alternatively you can also install Mainsail instead of Fluidd.
 
 </details>
 
-<details>
+### STEP 5: SLICER SETTINGS
 
-<summary> ### STEP 5: SLICER SETTINGS </summary>
+<details>
+<summary> SLICER SETTINGS </summary>
 
 Use the [following machine g-codes](slicer_machine_gcodes.md) with your slicer.
 
