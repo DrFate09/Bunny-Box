@@ -1,3 +1,7 @@
+<p align="center">
+  <h1 align="center"> Plus4 Happy Hare Standalone Slicer Machine G-Codes</h1>
+</p>
+
 # MACHINE START G-CODE
 
 Possible to modify - the general idea is:
