@@ -1,8 +1,8 @@
-# Flashing the Qidi Box
+# Flashing the QIDI Box
 
-## Flashing Katapult on the Qidi Box
+## Flashing Katapult
 
-1. Build katapult
+1. Build Katapult
 
     ```
     cd ~/katapult
@@ -17,7 +17,7 @@
     make -j4
     ```
 
-2. Make sure the klipper service stopped
+2. Make sure the Klipper service stopped
 
     ```
     sudo service klipper stop
@@ -44,11 +44,10 @@
     Bus 002 Device 006: ID 0483:df11 STMicroelectronics STM Device in DFU Mode
     ```
 
-5. Flash katapult:
+5. Flash Katapult:
 
     ```
     sudo dfu-util -R -a 0 -s 0x08000000:mass-erase:force:leave -D ~/katapult/out/katapult.bin -d 0483:df11
-
     ```
 
     You should see a successful flash like this:
@@ -90,9 +89,9 @@
     Resetting USB to switch back to Run-Time mode
     ```
 
-## Flashing Klipper on the Qidi Box
+## Flashing Klipper on the QIDI Box
 
-1. Build klipper
+1. Build Klipper
 
     ```
     cd ~/klipper
@@ -107,7 +106,7 @@
     make -j4
     ```
 
-2. Make sure the klipper service stopped
+2. Make sure the Klipper service stopped
 
     ```
     sudo service klipper stop
@@ -118,8 +117,9 @@
     ```
     ls -all /dev/serial/by-id/
     lrwxrwxrwx 1 root root 13 Feb  8 10:49 usb-katapult_stm32f401xc_56003A001051353033353536-if00 -> ../../ttyACM1
+    ```
 
-4. Flash klipper:
+4. Flash Klipper:
 
     ```
     cd ~/katapult/scripts
@@ -158,3 +158,4 @@
     ```
     ls -all /dev/serial/by-id/
     usb-Klipper_stm32f401xc_56003A001051353033353536-if00 -> ../../ttyACM1
+    ```
