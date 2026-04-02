@@ -1,6 +1,10 @@
 # Flashing the QIDI Box
 
+> [!IMPORTANT]  
+> Flashing the QIDI Box with updated Klipper firmware is optional and not requried for successful BunnyBox operation.
+
 ## Installing Katapult via DFU Mode 
+
 
 1. Clone the Katapult repo (if you do not already have it installed)
 
